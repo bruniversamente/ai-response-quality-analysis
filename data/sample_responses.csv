@@ -1,0 +1,13 @@
+response_id,prompt_id,response_date,model_name,input_language,output_language,response_length_chars,latency_seconds
+R001,P001,2026-02-05,model-a,pt,pt,612,3.4
+R002,P001,2026-02-05,model-a,pt,pt,488,2.9
+R003,P002,2026-02-06,model-a,pt,pt,96,1.8
+R004,P003,2026-02-07,model-a,pt,pt,945,4.1
+R005,P004,2026-02-08,model-a,pt,pt,420,2.6
+R006,P005,2026-02-10,model-b,pt,pt,540,2.7
+R007,P005,2026-02-10,model-b,pt,pt,571,2.8
+R008,P006,2026-02-11,model-b,pt,pt,82,1.6
+R009,P007,2026-02-12,model-b,pt,pt,902,3.8
+R010,P008,2026-02-13,model-b,pt,pt,390,2.2
+R011,P006,2026-02-14,model-b,pt,pt,91,1.7
+R012,P008,2026-02-15,model-b,pt,pt,430,2.4
