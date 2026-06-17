@@ -1,0 +1,9 @@
+prompt_id,prompt_version,use_case,task_type,expected_format,created_at
+P001,v1,Ticket Summary,Summarization,Bullets,2026-01-02
+P002,v1,Message Classification,Classification,Category Label,2026-01-02
+P003,v1,Report Drafting,Drafting,Structured Text,2026-01-03
+P004,v1,Data Explanation,Analysis Support,Short Explanation,2026-01-04
+P005,v2,Ticket Summary,Summarization,Bullets,2026-02-01
+P006,v2,Message Classification,Classification,Category Label,2026-02-01
+P007,v2,Report Drafting,Drafting,Structured Text,2026-02-02
+P008,v2,Data Explanation,Analysis Support,Short Explanation,2026-02-03
