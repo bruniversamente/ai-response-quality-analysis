@@ -1,0 +1,13 @@
+evaluation_id,response_id,reviewer_id,review_date,accuracy_score,completeness_score,clarity_score,tone_score,actionability_score,issue_type,severity,final_status,review_time_minutes
+E001,R001,REV01,2026-02-05,4,4,5,5,4,None,Low,Approved,6
+E002,R002,REV02,2026-02-05,3,3,4,5,3,Incomplete,Medium,Needs Rework,11
+E003,R003,REV01,2026-02-06,5,4,5,5,4,None,Low,Approved,4
+E004,R004,REV03,2026-02-07,3,4,3,4,3,Too Generic,Medium,Needs Rework,14
+E005,R005,REV02,2026-02-08,4,3,4,4,3,Missing Context,Medium,Needs Rework,10
+E006,R006,REV01,2026-02-10,5,4,5,5,5,None,Low,Approved,5
+E007,R007,REV02,2026-02-10,4,5,4,5,4,None,Low,Approved,6
+E008,R008,REV03,2026-02-11,5,5,5,5,4,None,Low,Approved,3
+E009,R009,REV01,2026-02-12,4,4,4,5,4,None,Low,Approved,8
+E010,R010,REV02,2026-02-13,4,4,5,5,4,None,Low,Approved,5
+E011,R011,REV03,2026-02-14,3,3,5,5,3,Wrong Category,High,Rejected,9
+E012,R012,REV01,2026-02-15,4,4,4,4,4,None,Low,Approved,6
