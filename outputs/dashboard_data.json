@@ -1,0 +1,390 @@
+{
+  "kpi_summary": [
+    {
+      "reviewed_responses": 500,
+      "avg_quality_score": 3.67,
+      "release_ready_rate": 0.41,
+      "rework_rate": 0.414,
+      "critical_issue_rate": 0.176,
+      "avg_review_time_minutes": 10.4,
+      "avg_latency_seconds": 3.45
+    }
+  ],
+  "prompt_version_performance": [
+    {
+      "prompt_version": "v1",
+      "reviewed_responses": 159,
+      "avg_quality_score": 3.21,
+      "release_ready_rate": 0.1824,
+      "rework_rate": 0.478,
+      "critical_issue_rate": 0.3396,
+      "avg_review_time_minutes": 10.12
+    },
+    {
+      "prompt_version": "v2",
+      "reviewed_responses": 168,
+      "avg_quality_score": 3.74,
+      "release_ready_rate": 0.4345,
+      "rework_rate": 0.4226,
+      "critical_issue_rate": 0.1429,
+      "avg_review_time_minutes": 10.61
+    },
+    {
+      "prompt_version": "v3",
+      "reviewed_responses": 173,
+      "avg_quality_score": 4.02,
+      "release_ready_rate": 0.5954,
+      "rework_rate": 0.3468,
+      "critical_issue_rate": 0.0578,
+      "avg_review_time_minutes": 10.45
+    }
+  ],
+  "quality_by_use_case": [
+    {
+      "use_case": "Ticket Summary",
+      "task_type": "Summarization",
+      "reviewed_responses": 116,
+      "avg_quality_score": 3.48,
+      "avg_accuracy": 3.57,
+      "avg_completeness": 3.2,
+      "avg_clarity": 3.63,
+      "avg_tone": 3.59,
+      "avg_actionability": 3.41,
+      "release_ready_rate": 0.3103,
+      "avg_review_time_minutes": 10.11
+    },
+    {
+      "use_case": "Data Explanation",
+      "task_type": "Analysis Support",
+      "reviewed_responses": 131,
+      "avg_quality_score": 3.67,
+      "avg_accuracy": 3.61,
+      "avg_completeness": 3.57,
+      "avg_clarity": 3.72,
+      "avg_tone": 3.75,
+      "avg_actionability": 3.68,
+      "release_ready_rate": 0.4198,
+      "avg_review_time_minutes": 10.47
+    },
+    {
+      "use_case": "Message Classification",
+      "task_type": "Classification",
+      "reviewed_responses": 119,
+      "avg_quality_score": 3.72,
+      "avg_accuracy": 3.66,
+      "avg_completeness": 3.8,
+      "avg_clarity": 3.65,
+      "avg_tone": 3.76,
+      "avg_actionability": 3.74,
+      "release_ready_rate": 0.4286,
+      "avg_review_time_minutes": 10.68
+    },
+    {
+      "use_case": "Report Drafting",
+      "task_type": "Drafting",
+      "reviewed_responses": 134,
+      "avg_quality_score": 3.79,
+      "avg_accuracy": 3.89,
+      "avg_completeness": 3.91,
+      "avg_clarity": 3.83,
+      "avg_tone": 3.67,
+      "avg_actionability": 3.63,
+      "release_ready_rate": 0.4701,
+      "avg_review_time_minutes": 10.32
+    }
+  ],
+  "dimension_scores": [
+    {
+      "dimension": "Actionability",
+      "avg_score": 3.62
+    },
+    {
+      "dimension": "Completeness",
+      "avg_score": 3.63
+    },
+    {
+      "dimension": "Tone fit",
+      "avg_score": 3.69
+    },
+    {
+      "dimension": "Accuracy",
+      "avg_score": 3.69
+    },
+    {
+      "dimension": "Clarity",
+      "avg_score": 3.71
+    }
+  ],
+  "issue_distribution": [
+    {
+      "issue_type": "Missing Context",
+      "severity": "Medium",
+      "occurrences": 53,
+      "share_of_reviews": 0.1797
+    },
+    {
+      "issue_type": "Too Generic",
+      "severity": "Medium",
+      "occurrences": 38,
+      "share_of_reviews": 0.1288
+    },
+    {
+      "issue_type": "Low Actionability",
+      "severity": "Medium",
+      "occurrences": 35,
+      "share_of_reviews": 0.1186
+    },
+    {
+      "issue_type": "Format Issue",
+      "severity": "Medium",
+      "occurrences": 31,
+      "share_of_reviews": 0.1051
+    },
+    {
+      "issue_type": "Incomplete",
+      "severity": "Medium",
+      "occurrences": 26,
+      "share_of_reviews": 0.0881
+    },
+    {
+      "issue_type": "Wrong Category",
+      "severity": "Medium",
+      "occurrences": 24,
+      "share_of_reviews": 0.0814
+    },
+    {
+      "issue_type": "Incomplete",
+      "severity": "High",
+      "occurrences": 20,
+      "share_of_reviews": 0.0678
+    },
+    {
+      "issue_type": "Missing Context",
+      "severity": "High",
+      "occurrences": 20,
+      "share_of_reviews": 0.0678
+    },
+    {
+      "issue_type": "Low Actionability",
+      "severity": "High",
+      "occurrences": 16,
+      "share_of_reviews": 0.0542
+    },
+    {
+      "issue_type": "Format Issue",
+      "severity": "High",
+      "occurrences": 15,
+      "share_of_reviews": 0.0508
+    },
+    {
+      "issue_type": "Too Generic",
+      "severity": "High",
+      "occurrences": 12,
+      "share_of_reviews": 0.0407
+    },
+    {
+      "issue_type": "Wrong Category",
+      "severity": "High",
+      "occurrences": 5,
+      "share_of_reviews": 0.0169
+    }
+  ],
+  "monthly_quality_trend": [
+    {
+      "response_month": "2026-02",
+      "reviewed_responses": 87,
+      "avg_quality_score": 3.6,
+      "release_ready_rate": 0.3563,
+      "critical_issue_rate": 0.1954
+    },
+    {
+      "response_month": "2026-03",
+      "reviewed_responses": 130,
+      "avg_quality_score": 3.63,
+      "release_ready_rate": 0.4385,
+      "critical_issue_rate": 0.2
+    },
+    {
+      "response_month": "2026-04",
+      "reviewed_responses": 135,
+      "avg_quality_score": 3.62,
+      "release_ready_rate": 0.3556,
+      "critical_issue_rate": 0.1852
+    },
+    {
+      "response_month": "2026-05",
+      "reviewed_responses": 148,
+      "avg_quality_score": 3.79,
+      "release_ready_rate": 0.4662,
+      "critical_issue_rate": 0.1351
+    }
+  ],
+  "reviewer_calibration": [
+    {
+      "reviewer_id": "REV03",
+      "reviewed_responses": 165,
+      "avg_quality_score": 3.67,
+      "score_stddev": 0.82,
+      "avg_review_time_minutes": 10.16,
+      "rework_rate": 0.3636
+    },
+    {
+      "reviewer_id": "REV01",
+      "reviewed_responses": 112,
+      "avg_quality_score": 3.55,
+      "score_stddev": 0.73,
+      "avg_review_time_minutes": 9.97,
+      "rework_rate": 0.4911
+    },
+    {
+      "reviewer_id": "REV04",
+      "reviewed_responses": 112,
+      "avg_quality_score": 3.69,
+      "score_stddev": 0.78,
+      "avg_review_time_minutes": 11.04,
+      "rework_rate": 0.4107
+    },
+    {
+      "reviewer_id": "REV02",
+      "reviewed_responses": 111,
+      "avg_quality_score": 3.76,
+      "score_stddev": 0.7,
+      "avg_review_time_minutes": 10.54,
+      "rework_rate": 0.4144
+    }
+  ],
+  "improvement_backlog": [
+    {
+      "use_case": "Data Explanation",
+      "prompt_version": "v1",
+      "reviewed_responses": 44,
+      "avg_quality_score": 3.25,
+      "avg_actionability": 3.32,
+      "release_ready_rate": 0.1591,
+      "not_approved_cases": 37,
+      "avg_review_time_minutes": 10.39
+    },
+    {
+      "use_case": "Report Drafting",
+      "prompt_version": "v1",
+      "reviewed_responses": 39,
+      "avg_quality_score": 3.22,
+      "avg_actionability": 3.1,
+      "release_ready_rate": 0.1795,
+      "not_approved_cases": 32,
+      "avg_review_time_minutes": 9.79
+    },
+    {
+      "use_case": "Message Classification",
+      "prompt_version": "v1",
+      "reviewed_responses": 41,
+      "avg_quality_score": 3.2,
+      "avg_actionability": 3.34,
+      "release_ready_rate": 0.1951,
+      "not_approved_cases": 33,
+      "avg_review_time_minutes": 10.66
+    },
+    {
+      "use_case": "Ticket Summary",
+      "prompt_version": "v1",
+      "reviewed_responses": 35,
+      "avg_quality_score": 3.19,
+      "avg_actionability": 3.06,
+      "release_ready_rate": 0.2,
+      "not_approved_cases": 28,
+      "avg_review_time_minutes": 9.51
+    },
+    {
+      "use_case": "Ticket Summary",
+      "prompt_version": "v2",
+      "reviewed_responses": 45,
+      "avg_quality_score": 3.35,
+      "avg_actionability": 3.36,
+      "release_ready_rate": 0.2444,
+      "not_approved_cases": 34,
+      "avg_review_time_minutes": 10.29
+    },
+    {
+      "use_case": "Data Explanation",
+      "prompt_version": "v2",
+      "reviewed_responses": 45,
+      "avg_quality_score": 3.72,
+      "avg_actionability": 3.76,
+      "release_ready_rate": 0.4444,
+      "not_approved_cases": 25,
+      "avg_review_time_minutes": 11.0
+    },
+    {
+      "use_case": "Ticket Summary",
+      "prompt_version": "v3",
+      "reviewed_responses": 36,
+      "avg_quality_score": 3.91,
+      "avg_actionability": 3.81,
+      "release_ready_rate": 0.5,
+      "not_approved_cases": 18,
+      "avg_review_time_minutes": 10.47
+    },
+    {
+      "use_case": "Message Classification",
+      "prompt_version": "v2",
+      "reviewed_responses": 30,
+      "avg_quality_score": 4.0,
+      "avg_actionability": 3.93,
+      "release_ready_rate": 0.5,
+      "not_approved_cases": 15,
+      "avg_review_time_minutes": 10.7
+    },
+    {
+      "use_case": "Report Drafting",
+      "prompt_version": "v2",
+      "reviewed_responses": 48,
+      "avg_quality_score": 3.95,
+      "avg_actionability": 3.83,
+      "release_ready_rate": 0.5625,
+      "not_approved_cases": 21,
+      "avg_review_time_minutes": 10.48
+    },
+    {
+      "use_case": "Message Classification",
+      "prompt_version": "v3",
+      "reviewed_responses": 48,
+      "avg_quality_score": 4.0,
+      "avg_actionability": 3.96,
+      "release_ready_rate": 0.5833,
+      "not_approved_cases": 20,
+      "avg_review_time_minutes": 10.69
+    }
+  ],
+  "data_quality_summary": [
+    {
+      "rule_name": "response_without_evaluation",
+      "severity": "Critical",
+      "failed_records": 0
+    },
+    {
+      "rule_name": "evaluation_without_response",
+      "severity": "Critical",
+      "failed_records": 0
+    },
+    {
+      "rule_name": "score_outside_expected_range",
+      "severity": "Critical",
+      "failed_records": 0
+    },
+    {
+      "rule_name": "approved_with_high_severity",
+      "severity": "Critical",
+      "failed_records": 0
+    },
+    {
+      "rule_name": "duplicate_response_evaluation",
+      "severity": "Critical",
+      "failed_records": 0
+    },
+    {
+      "rule_name": "approved_but_below_threshold",
+      "severity": "Warning",
+      "failed_records": 0
+    }
+  ]
+}

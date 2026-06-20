@@ -1,64 +1,71 @@
-# Dashboard blueprint
+﻿# Blueprint do dashboard
 
-This document describes the proposed Power BI dashboard for the project.
+Este documento descreve o dashboard principal do case AI Response Quality.
 
-## Page 1 - Quality overview
+Artefato entregue:
 
-Goal: provide a quick view of AI response quality.
+```text
+dashboard/ai_response_quality_dashboard.html
+```
 
-### Main cards
+## Objetivo
 
-- Responses reviewed
-- Average quality score
-- Approval rate
-- Rework rate
-- Critical issue rate
-- Average review time
+Permitir que recrutadores, líderes de produto, operações e IA entendam rapidamente:
 
-### Charts
+- quantas respostas foram revisadas;
+- qual é o nível médio de qualidade;
+- qual percentual está pronto para uso;
+- qual versão de prompt performa melhor;
+- quais casos de uso concentram mais risco;
+- quais tipos de problema devem entrar no backlog;
+- se revisores estão relativamente calibrados;
+- se há problemas de qualidade nos dados da avaliação.
 
-1. Quality score by use case
-2. Approval rate by prompt version
-3. Issue type distribution
-4. Review time by use case
-5. Quality score by model
-6. Status distribution
+## Estrutura visual
 
-## Page 2 - Prompt version comparison
+### 1. Leitura executiva
 
-Goal: compare quality before and after prompt changes.
+Resumo curto com a melhor versão de prompt e o caso de uso mais frágil.
 
-### Charts
+### 2. Cards principais
 
-- Average score by prompt version
-- Approval rate by prompt version
-- Rework rate by prompt version
-- Issue distribution by prompt version
-- Table with use case, version, score and status
+- Respostas revisadas
+- Score médio
+- Taxa de prontidão para uso
+- Taxa de retrabalho
 
-## Page 3 - Review operations
+### 3. Versões de prompt
 
-Goal: monitor workload and review efficiency.
+Gráfico de barras horizontais com taxa de respostas prontas para uso por versão.
 
-### Charts
+### 4. Dimensões da rubrica
 
-- Reviews by reviewer
-- Average review time by reviewer
-- Review volume by date
-- High severity issues by use case
-- Responses needing rework
+Gráfico de barras com score médio por dimensão: accuracy, completeness, clarity, tone fit e actionability.
 
-## Page 4 - Improvement backlog
+### 5. Qualidade por caso de uso
 
-Goal: support prioritization of prompt and process improvements.
+Tabela com score médio, amostra, taxa de prontidão e tempo médio de revisão.
 
-### Views
+### 6. Principais problemas
 
-- Use cases with low actionability score
-- Use cases with high rework rate
-- Most frequent issue types
-- Prompt versions with quality drop
+Tabela com tipo de problema, severidade, ocorrências e participação nas revisões.
 
-## Design notes
+### 7. Tendência mensal
 
-The first version should be simple, transparent and focused on governance. The dashboard should make quality gaps visible without hiding review assumptions.
+Resumo visual do score médio por mês.
+
+### 8. Backlog de melhoria
+
+Tabela priorizada por risco, retrabalho e baixa taxa de prontidão.
+
+### 9. Calibração de revisores
+
+Tabela com volume, score médio, dispersão, tempo médio e taxa de retrabalho por revisor.
+
+## Princípios de design
+
+- O topo deve responder se a operação está pronta para escalar.
+- Métricas devem mostrar denominador e regra de cálculo.
+- A comparação de prompt deve usar taxa de prontidão, não apenas nota média.
+- O backlog deve ser operacional: caso de uso, versão, score, prontidão e não aprovadas.
+- A metodologia deve aparecer no rodapé para explicar a regra de resposta pronta para uso.

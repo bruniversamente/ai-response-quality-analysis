@@ -1,0 +1,11 @@
+use_case,prompt_version,reviewed_responses,avg_quality_score,avg_actionability,release_ready_rate,not_approved_cases,avg_review_time_minutes
+Data Explanation,v1,44,3.25,3.32,0.1591,37,10.39
+Report Drafting,v1,39,3.22,3.1,0.1795,32,9.79
+Message Classification,v1,41,3.2,3.34,0.1951,33,10.66
+Ticket Summary,v1,35,3.19,3.06,0.2,28,9.51
+Ticket Summary,v2,45,3.35,3.36,0.2444,34,10.29
+Data Explanation,v2,45,3.72,3.76,0.4444,25,11.0
+Ticket Summary,v3,36,3.91,3.81,0.5,18,10.47
+Message Classification,v2,30,4.0,3.93,0.5,15,10.7
+Report Drafting,v2,48,3.95,3.83,0.5625,21,10.48
+Message Classification,v3,48,4.0,3.96,0.5833,20,10.69

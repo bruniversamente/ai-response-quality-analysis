@@ -1,0 +1,5 @@
+reviewer_id,reviewed_responses,avg_quality_score,score_stddev,avg_review_time_minutes,rework_rate
+REV03,165,3.67,0.82,10.16,0.3636
+REV01,112,3.55,0.73,9.97,0.4911
+REV04,112,3.69,0.78,11.04,0.4107
+REV02,111,3.76,0.7,10.54,0.4144

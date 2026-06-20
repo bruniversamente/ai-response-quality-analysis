@@ -1,0 +1,7 @@
+rule_name,severity,failed_records
+response_without_evaluation,Critical,0
+evaluation_without_response,Critical,0
+score_outside_expected_range,Critical,0
+approved_with_high_severity,Critical,0
+duplicate_response_evaluation,Critical,0
+approved_but_below_threshold,Warning,0

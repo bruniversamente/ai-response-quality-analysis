@@ -1,0 +1,5 @@
+use_case,task_type,reviewed_responses,avg_quality_score,avg_accuracy,avg_completeness,avg_clarity,avg_tone,avg_actionability,release_ready_rate,avg_review_time_minutes
+Ticket Summary,Summarization,116,3.48,3.57,3.2,3.63,3.59,3.41,0.3103,10.11
+Data Explanation,Analysis Support,131,3.67,3.61,3.57,3.72,3.75,3.68,0.4198,10.47
+Message Classification,Classification,119,3.72,3.66,3.8,3.65,3.76,3.74,0.4286,10.68
+Report Drafting,Drafting,134,3.79,3.89,3.91,3.83,3.67,3.63,0.4701,10.32

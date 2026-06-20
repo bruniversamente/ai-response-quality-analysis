@@ -1,0 +1,13 @@
+issue_type,severity,occurrences,share_of_reviews
+Missing Context,Medium,53,0.1797
+Too Generic,Medium,38,0.1288
+Low Actionability,Medium,35,0.1186
+Format Issue,Medium,31,0.1051
+Incomplete,Medium,26,0.0881
+Wrong Category,Medium,24,0.0814
+Incomplete,High,20,0.0678
+Missing Context,High,20,0.0678
+Low Actionability,High,16,0.0542
+Format Issue,High,15,0.0508
+Too Generic,High,12,0.0407
+Wrong Category,High,5,0.0169

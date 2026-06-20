@@ -1,48 +1,83 @@
-# Evaluation rubric
+﻿# Rubrica de avaliação
 
-This rubric defines how AI responses are reviewed in the project.
+Esta rubrica define como as respostas de IA são avaliadas no projeto.
 
-Each response receives a score from 1 to 5 in five dimensions.
+Cada resposta recebe nota de 1 a 5 em cinco dimensões. A nota final é a média simples dessas dimensões.
 
-## Scoring scale
+## Escala de pontuação
 
-| Score | Meaning |
-|---|---|
-| 1 | Very poor. Requires full rewrite. |
-| 2 | Weak. Multiple issues and limited usefulness. |
-| 3 | Acceptable with revision. Useful but incomplete or unclear. |
-| 4 | Good. Minor improvements may be needed. |
-| 5 | Excellent. Ready to use. |
+| Nota | Significado | Interpretação operacional |
+|---|---|---|
+| 1 | Muito ruim | Exige reescrita completa. |
+| 2 | Fraca | Tem vários problemas e utilidade limitada. |
+| 3 | Aceitável com revisão | Ajuda parcialmente, mas não deve ser usada sem ajuste. |
+| 4 | Boa | Pode ser usada com ajustes pequenos ou revisão leve. |
+| 5 | Excelente | Pronta para uso no contexto esperado. |
 
-## Dimensions
+## Dimensões
 
 ### Accuracy
 
-Evaluates whether the answer is correct and aligned with the available context.
+Avalia se a resposta está correta e alinhada ao contexto disponível.
+
+Sinais de baixa nota:
+
+- afirmação incorreta;
+- conclusão sem suporte;
+- classificação errada;
+- dado ou critério inventado.
 
 ### Completeness
 
-Evaluates whether the answer covers the relevant parts of the request.
+Avalia se a resposta cobre as partes relevantes da solicitação.
+
+Sinais de baixa nota:
+
+- ignora parte importante do pedido;
+- deixa de mencionar restrição relevante;
+- resume demais quando o caso exige detalhe;
+- não responde a pergunta principal.
 
 ### Clarity
 
-Evaluates whether the answer is easy to understand, structured and direct.
+Avalia se a resposta é fácil de entender, estruturada e direta.
+
+Sinais de baixa nota:
+
+- texto confuso;
+- organização fraca;
+- excesso de rodeios;
+- mistura de assuntos sem hierarquia.
 
 ### Tone fit
 
-Evaluates whether the answer matches the expected tone for the use case.
+Avalia se o tom combina com o caso de uso.
+
+Sinais de baixa nota:
+
+- tom informal demais para contexto executivo;
+- tom rígido demais para atendimento;
+- falta de empatia quando necessária;
+- linguagem desalinhada ao público.
 
 ### Actionability
 
-Evaluates whether the answer helps the user take a clear next step.
+Avalia se a resposta ajuda alguém a tomar uma próxima ação clara.
 
-## Final status
+Sinais de baixa nota:
 
-- `Approved`: response can be used with no relevant changes.
-- `Needs Rework`: response is useful but needs review or adjustment.
-- `Rejected`: response should not be used.
+- recomendação genérica;
+- falta de critério de prioridade;
+- ausência de próximo passo;
+- resposta correta, mas pouco útil para decisão.
 
-## Issue types
+## Status final
+
+- `Approved`: resposta pode ser usada sem mudança relevante.
+- `Needs Rework`: resposta é aproveitável, mas precisa de ajuste.
+- `Rejected`: resposta não deve ser usada.
+
+## Tipos de problema
 
 - `None`
 - `Incomplete`
@@ -52,16 +87,19 @@ Evaluates whether the answer helps the user take a clear next step.
 - `Format Issue`
 - `Low Actionability`
 
-## Quality score
+## Regra de prontidão para uso
+
+Uma resposta pronta para uso precisa atender aos três critérios:
 
 ```text
-quality_score = average(accuracy, completeness, clarity, tone_fit, actionability)
+final_status = Approved
+quality_score >= 4.0
+severity <> High
 ```
 
-## Approval rule
+## Cuidados de avaliação
 
-A response is approved when:
-
-- final status is `Approved`
-- no high severity issue exists
-- average score is equal to or above 4.0
+- Comparar versões de prompt exige a mesma rubrica.
+- Revisores precisam estar calibrados para reduzir diferenças de critério.
+- Nota média sozinha não basta; severidade, retrabalho e tipo de problema também devem ser analisados.
+- Avaliações automatizadas devem ser validadas contra revisão humana antes de uso operacional amplo.

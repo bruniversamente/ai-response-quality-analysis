@@ -6,6 +6,11 @@ SELECT
     COUNT(response_id) AS reviewed_responses,
     ROUND(AVG(quality_score), 2) AS avg_quality_score,
     ROUND(COUNT(CASE WHEN final_status = 'Approved' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS approval_rate,
+    ROUND(
+        COUNT(CASE WHEN final_status = 'Approved' AND quality_score >= 4.0 AND severity <> 'High' THEN 1 END)
+        / NULLIF(COUNT(response_id), 0),
+        4
+    ) AS release_ready_rate,
     ROUND(COUNT(CASE WHEN final_status = 'Needs Rework' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS rework_rate,
     ROUND(COUNT(CASE WHEN severity = 'High' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS critical_issue_rate,
     ROUND(AVG(review_time_minutes), 2) AS avg_review_time_minutes
@@ -22,13 +27,40 @@ SELECT
     ROUND(AVG(completeness_score), 2) AS avg_completeness,
     ROUND(AVG(clarity_score), 2) AS avg_clarity,
     ROUND(AVG(actionability_score), 2) AS avg_actionability,
-    ROUND(COUNT(CASE WHEN final_status = 'Approved' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS approval_rate
+    ROUND(COUNT(CASE WHEN final_status = 'Approved' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS approval_rate,
+    ROUND(
+        COUNT(CASE WHEN final_status = 'Approved' AND quality_score >= 4.0 AND severity <> 'High' THEN 1 END)
+        / NULLIF(COUNT(response_id), 0),
+        4
+    ) AS release_ready_rate
 FROM vw_ai_quality_enriched
 WHERE evaluation_id IS NOT NULL
 GROUP BY use_case, task_type
 ORDER BY avg_quality_score ASC;
 
--- 3. Issue distribution
+-- 3. Dimension scores
+SELECT 'Accuracy' AS dimension, ROUND(AVG(accuracy_score), 2) AS avg_score
+FROM vw_ai_quality_enriched
+WHERE evaluation_id IS NOT NULL
+UNION ALL
+SELECT 'Completeness', ROUND(AVG(completeness_score), 2)
+FROM vw_ai_quality_enriched
+WHERE evaluation_id IS NOT NULL
+UNION ALL
+SELECT 'Clarity', ROUND(AVG(clarity_score), 2)
+FROM vw_ai_quality_enriched
+WHERE evaluation_id IS NOT NULL
+UNION ALL
+SELECT 'Tone fit', ROUND(AVG(tone_score), 2)
+FROM vw_ai_quality_enriched
+WHERE evaluation_id IS NOT NULL
+UNION ALL
+SELECT 'Actionability', ROUND(AVG(actionability_score), 2)
+FROM vw_ai_quality_enriched
+WHERE evaluation_id IS NOT NULL
+ORDER BY avg_score ASC;
+
+-- 4. Issue distribution
 SELECT
     issue_type,
     severity,
@@ -36,14 +68,16 @@ SELECT
     ROUND(COUNT(*) / SUM(COUNT(*)) OVER (), 4) AS share_of_issues
 FROM vw_ai_quality_enriched
 WHERE evaluation_id IS NOT NULL
+  AND issue_type <> 'None'
 GROUP BY issue_type, severity
 ORDER BY occurrences DESC;
 
--- 4. Review workload by reviewer
+-- 5. Review workload by reviewer
 SELECT
     reviewer_id,
     COUNT(response_id) AS reviewed_responses,
     ROUND(AVG(quality_score), 2) AS avg_quality_score,
+    ROUND(STDDEV_SAMP(quality_score), 2) AS score_stddev,
     ROUND(AVG(review_time_minutes), 2) AS avg_review_time_minutes,
     COUNT(CASE WHEN final_status = 'Needs Rework' THEN 1 END) AS rework_cases,
     COUNT(CASE WHEN final_status = 'Rejected' THEN 1 END) AS rejected_cases

@@ -1,0 +1,4 @@
+prompt_version,reviewed_responses,avg_quality_score,release_ready_rate,rework_rate,critical_issue_rate,avg_review_time_minutes
+v1,159,3.21,0.1824,0.478,0.3396,10.12
+v2,168,3.74,0.4345,0.4226,0.1429,10.61
+v3,173,4.02,0.5954,0.3468,0.0578,10.45

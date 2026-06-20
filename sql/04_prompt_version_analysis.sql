@@ -7,6 +7,11 @@ SELECT
     COUNT(response_id) AS reviewed_responses,
     ROUND(AVG(quality_score), 2) AS avg_quality_score,
     ROUND(COUNT(CASE WHEN final_status = 'Approved' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS approval_rate,
+    ROUND(
+        COUNT(CASE WHEN final_status = 'Approved' AND quality_score >= 4.0 AND severity <> 'High' THEN 1 END)
+        / NULLIF(COUNT(response_id), 0),
+        4
+    ) AS release_ready_rate,
     ROUND(COUNT(CASE WHEN final_status = 'Needs Rework' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS rework_rate,
     ROUND(COUNT(CASE WHEN severity = 'High' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS critical_issue_rate,
     ROUND(AVG(review_time_minutes), 2) AS avg_review_time_minutes
@@ -22,7 +27,12 @@ SELECT
     COUNT(response_id) AS reviewed_responses,
     ROUND(AVG(quality_score), 2) AS avg_quality_score,
     ROUND(AVG(actionability_score), 2) AS avg_actionability,
-    ROUND(COUNT(CASE WHEN final_status = 'Approved' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS approval_rate
+    ROUND(COUNT(CASE WHEN final_status = 'Approved' THEN 1 END) / NULLIF(COUNT(response_id), 0), 4) AS approval_rate,
+    ROUND(
+        COUNT(CASE WHEN final_status = 'Approved' AND quality_score >= 4.0 AND severity <> 'High' THEN 1 END)
+        / NULLIF(COUNT(response_id), 0),
+        4
+    ) AS release_ready_rate
 FROM vw_ai_quality_enriched
 WHERE evaluation_id IS NOT NULL
 GROUP BY use_case, prompt_version
@@ -45,6 +55,11 @@ SELECT
     COUNT(response_id) AS reviewed_responses,
     ROUND(AVG(quality_score), 2) AS avg_quality_score,
     ROUND(AVG(actionability_score), 2) AS avg_actionability,
+    ROUND(
+        COUNT(CASE WHEN final_status = 'Approved' AND quality_score >= 4.0 AND severity <> 'High' THEN 1 END)
+        / NULLIF(COUNT(response_id), 0),
+        4
+    ) AS release_ready_rate,
     COUNT(CASE WHEN final_status <> 'Approved' THEN 1 END) AS not_approved_cases,
     ROUND(AVG(review_time_minutes), 2) AS avg_review_time_minutes
 FROM vw_ai_quality_enriched

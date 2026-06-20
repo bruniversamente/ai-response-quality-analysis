@@ -9,7 +9,7 @@ SELECT
     task_type,
     expected_format,
     CAST(created_at AS DATE) AS created_at
-FROM read_csv_auto('data/sample_prompts.csv');
+FROM read_csv_auto('data/generated/prompts.csv');
 
 CREATE OR REPLACE TABLE fact_responses AS
 SELECT
@@ -21,7 +21,7 @@ SELECT
     output_language,
     CAST(response_length_chars AS INTEGER) AS response_length_chars,
     CAST(latency_seconds AS DOUBLE) AS latency_seconds
-FROM read_csv_auto('data/sample_responses.csv');
+FROM read_csv_auto('data/generated/responses.csv');
 
 CREATE OR REPLACE TABLE fact_evaluations AS
 SELECT
@@ -48,7 +48,7 @@ SELECT
         ) / 5,
         2
     ) AS quality_score
-FROM read_csv_auto('data/sample_evaluations.csv');
+FROM read_csv_auto('data/generated/evaluations.csv');
 
 CREATE OR REPLACE VIEW vw_ai_quality_enriched AS
 SELECT

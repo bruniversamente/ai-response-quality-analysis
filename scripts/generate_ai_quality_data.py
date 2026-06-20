@@ -19,6 +19,28 @@ USE_CASES = [
 MODELS = ["model-a", "model-b"]
 REVIEWERS = ["REV01", "REV02", "REV03", "REV04"]
 ISSUES = ["None", "Incomplete", "Too Generic", "Missing Context", "Wrong Category", "Format Issue", "Low Actionability"]
+USE_CASE_ADJUSTMENTS = {
+    "Ticket Summary": {
+        "base": -0.20,
+        "dimension_penalty": {"completeness": -0.35, "actionability": -0.20},
+        "issues": ["Incomplete", "Missing Context", "Too Generic"],
+    },
+    "Message Classification": {
+        "base": -0.05,
+        "dimension_penalty": {"accuracy": -0.20, "clarity": -0.10},
+        "issues": ["Wrong Category", "Missing Context", "Format Issue"],
+    },
+    "Report Drafting": {
+        "base": 0.05,
+        "dimension_penalty": {"tone": -0.10, "actionability": -0.25},
+        "issues": ["Low Actionability", "Too Generic", "Format Issue"],
+    },
+    "Data Explanation": {
+        "base": -0.10,
+        "dimension_penalty": {"accuracy": -0.15, "completeness": -0.15},
+        "issues": ["Missing Context", "Incomplete", "Low Actionability"],
+    },
+}
 
 
 def write_csv(path, rows):
@@ -52,9 +74,17 @@ def main():
         response_id = f"R{idx:05d}"
         response_date = start + timedelta(days=random.randint(40, 150))
         model_name = random.choice(MODELS)
-        version_boost = {"v1": -0.3, "v2": 0.2, "v3": 0.4}[prompt["prompt_version"]]
-        base = max(1, min(5, random.gauss(3.8 + version_boost, 0.75)))
-        scores = [max(1, min(5, round(random.gauss(base, 0.55)))) for _ in range(5)]
+        version_boost = {"v1": -0.45, "v2": 0.12, "v3": 0.42}[prompt["prompt_version"]]
+        use_case_rules = USE_CASE_ADJUSTMENTS[prompt["use_case"]]
+        base = max(1, min(5, random.gauss(3.85 + version_boost + use_case_rules["base"], 0.70)))
+        raw_scores = {
+            "accuracy": random.gauss(base + use_case_rules["dimension_penalty"].get("accuracy", 0), 0.55),
+            "completeness": random.gauss(base + use_case_rules["dimension_penalty"].get("completeness", 0), 0.55),
+            "clarity": random.gauss(base + use_case_rules["dimension_penalty"].get("clarity", 0), 0.55),
+            "tone": random.gauss(base + use_case_rules["dimension_penalty"].get("tone", 0), 0.55),
+            "actionability": random.gauss(base + use_case_rules["dimension_penalty"].get("actionability", 0), 0.55),
+        }
+        scores = [max(1, min(5, round(raw_scores[key]))) for key in ["accuracy", "completeness", "clarity", "tone", "actionability"]]
         quality = sum(scores) / 5
 
         if quality >= 4.0:
@@ -62,11 +92,11 @@ def main():
             severity = "Low"
             status = "Approved"
         elif quality >= 3.0:
-            issue = random.choice([i for i in ISSUES if i != "None"])
+            issue = random.choice(use_case_rules["issues"])
             severity = "Medium"
             status = "Needs Rework"
         else:
-            issue = random.choice(["Incomplete", "Wrong Category", "Missing Context"])
+            issue = random.choice(use_case_rules["issues"])
             severity = "High"
             status = "Rejected"
 

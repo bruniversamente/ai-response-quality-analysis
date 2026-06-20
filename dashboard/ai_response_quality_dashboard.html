@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Response Quality Dashboard</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #617089;
+      --line: #d9e0eb;
+      --blue: #2563eb;
+      --cyan: #0891b2;
+      --green: #16a34a;
+      --amber: #d97706;
+      --red: #dc2626;
+      --shadow: 0 18px 45px rgba(23, 32, 51, 0.09);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .panel, .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .hero-copy, .hero-side { padding: 24px; }
+    .eyebrow {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 8px 0 10px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+    p { margin: 0; color: var(--muted); font-size: 16px; }
+    .decision {
+      border-left: 4px solid var(--blue);
+      padding-left: 14px;
+    }
+    .decision strong { display: block; margin-bottom: 6px; font-size: 16px; }
+    .note { color: var(--muted); font-size: 13px; }
+    .grid { display: grid; gap: 16px; }
+    .kpi-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 16px;
+    }
+    .card { padding: 18px; min-height: 126px; }
+    .card small { display: block; color: var(--muted); font-weight: 800; margin-bottom: 10px; }
+    .card strong { display: block; font-size: 30px; line-height: 1; }
+    .card span { display: block; margin-top: 10px; color: var(--muted); }
+    .two-col { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin-bottom: 16px; }
+    .panel { padding: 20px; min-width: 0; }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 14px;
+    }
+    .bars { display: grid; gap: 11px; }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 160px minmax(130px, 1fr) 82px;
+      gap: 12px;
+      align-items: center;
+    }
+    .bar-label { font-weight: 800; }
+    .track {
+      height: 22px;
+      border: 1px solid #e4e9f2;
+      border-radius: 5px;
+      background: #edf2f8;
+      overflow: hidden;
+    }
+    .fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+    .bar-value { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #e8edf5;
+      text-align: left;
+      white-space: nowrap;
+    }
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .trend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 8px;
+      align-items: end;
+      min-height: 220px;
+    }
+    .trend-col {
+      display: grid;
+      gap: 8px;
+      align-items: end;
+      min-height: 200px;
+    }
+    .trend-bar {
+      width: 100%;
+      min-height: 8px;
+      border-radius: 5px 5px 2px 2px;
+      background: linear-gradient(180deg, var(--green), var(--cyan));
+    }
+    .trend-col span { color: var(--muted); font-size: 12px; text-align: center; }
+    .sources { margin-top: 16px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 920px) {
+      main { padding: 16px; }
+      .hero, .two-col, .kpi-grid { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 1fr; gap: 6px; }
+      .bar-value { text-align: left; }
+      table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="hero-copy panel">
+        <div class="eyebrow">AI Operations Case | Quality Evaluation</div>
+        <h1>AI Response Quality</h1>
+        <p>Reproducible dashboard to monitor quality score, release readiness, rework, critical issues and evolution by prompt version.</p>
+      </div>
+      <aside class="hero-side panel">
+        <div class="decision">
+          <strong>Executive read</strong>
+          <span id="decisionText">Loading summary...</span>
+        </div>
+        <p class="note" style="margin-top:14px">Source: synthetic data generated with Python, evaluated through a five-dimension rubric and modeled in DuckDB.</p>
+      </aside>
+    </section>
+
+    <section class="grid kpi-grid" id="kpis"></section>
+
+    <section class="grid two-col">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Prompt versions</h2>
+          <span class="note">Release-ready</span>
+        </div>
+        <div class="bars" id="promptBars"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Rubric dimensions</h2>
+          <span class="note">Average score, 1-5 scale</span>
+        </div>
+        <div class="bars" id="dimensionBars"></div>
+      </div>
+    </section>
+
+    <section class="grid two-col">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Quality by use case</h2>
+          <span class="note">Lowest scores first</span>
+        </div>
+        <table id="useCaseTable"></table>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Main issues</h2>
+          <span class="note">Excludes responses with no issue</span>
+        </div>
+        <table id="issueTable"></table>
+      </div>
+    </section>
+
+    <section class="grid two-col">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Monthly trend</h2>
+          <span class="note">Average score by month</span>
+        </div>
+        <div class="trend" id="trend"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Improvement backlog</h2>
+          <span class="note">Priority by risk and rework</span>
+        </div>
+        <table id="backlogTable"></table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Reviewer calibration</h2>
+        <span class="note">Volume, average, dispersion and review time</span>
+      </div>
+      <table id="reviewerTable"></table>
+    </section>
+
+    <section class="sources">
+      <strong>Methodology:</strong> responses are evaluated on accuracy, completeness, clarity, tone fit and actionability. A release-ready response must be approved, have score >= 4.0 and have no high severity. The dashboard is generated by `scripts/build_outputs.py`; reviewed extracts are available in `outputs/`.
+    </section>
+  </main>
+
+  <script id="dashboardData" type="application/json">{"kpi_summary": [{"reviewed_responses": 500, "avg_quality_score": 3.67, "release_ready_rate": 0.41, "rework_rate": 0.414, "critical_issue_rate": 0.176, "avg_review_time_minutes": 10.4, "avg_latency_seconds": 3.45}], "prompt_version_performance": [{"prompt_version": "v1", "reviewed_responses": 159, "avg_quality_score": 3.21, "release_ready_rate": 0.1824, "rework_rate": 0.478, "critical_issue_rate": 0.3396, "avg_review_time_minutes": 10.12}, {"prompt_version": "v2", "reviewed_responses": 168, "avg_quality_score": 3.74, "release_ready_rate": 0.4345, "rework_rate": 0.4226, "critical_issue_rate": 0.1429, "avg_review_time_minutes": 10.61}, {"prompt_version": "v3", "reviewed_responses": 173, "avg_quality_score": 4.02, "release_ready_rate": 0.5954, "rework_rate": 0.3468, "critical_issue_rate": 0.0578, "avg_review_time_minutes": 10.45}], "quality_by_use_case": [{"use_case": "Ticket Summary", "task_type": "Summarization", "reviewed_responses": 116, "avg_quality_score": 3.48, "avg_accuracy": 3.57, "avg_completeness": 3.2, "avg_clarity": 3.63, "avg_tone": 3.59, "avg_actionability": 3.41, "release_ready_rate": 0.3103, "avg_review_time_minutes": 10.11}, {"use_case": "Data Explanation", "task_type": "Analysis Support", "reviewed_responses": 131, "avg_quality_score": 3.67, "avg_accuracy": 3.61, "avg_completeness": 3.57, "avg_clarity": 3.72, "avg_tone": 3.75, "avg_actionability": 3.68, "release_ready_rate": 0.4198, "avg_review_time_minutes": 10.47}, {"use_case": "Message Classification", "task_type": "Classification", "reviewed_responses": 119, "avg_quality_score": 3.72, "avg_accuracy": 3.66, "avg_completeness": 3.8, "avg_clarity": 3.65, "avg_tone": 3.76, "avg_actionability": 3.74, "release_ready_rate": 0.4286, "avg_review_time_minutes": 10.68}, {"use_case": "Report Drafting", "task_type": "Drafting", "reviewed_responses": 134, "avg_quality_score": 3.79, "avg_accuracy": 3.89, "avg_completeness": 3.91, "avg_clarity": 3.83, "avg_tone": 3.67, "avg_actionability": 3.63, "release_ready_rate": 0.4701, "avg_review_time_minutes": 10.32}], "dimension_scores": [{"dimension": "Actionability", "avg_score": 3.62}, {"dimension": "Completeness", "avg_score": 3.63}, {"dimension": "Tone fit", "avg_score": 3.69}, {"dimension": "Accuracy", "avg_score": 3.69}, {"dimension": "Clarity", "avg_score": 3.71}], "issue_distribution": [{"issue_type": "Missing Context", "severity": "Medium", "occurrences": 53, "share_of_reviews": 0.1797}, {"issue_type": "Too Generic", "severity": "Medium", "occurrences": 38, "share_of_reviews": 0.1288}, {"issue_type": "Low Actionability", "severity": "Medium", "occurrences": 35, "share_of_reviews": 0.1186}, {"issue_type": "Format Issue", "severity": "Medium", "occurrences": 31, "share_of_reviews": 0.1051}, {"issue_type": "Incomplete", "severity": "Medium", "occurrences": 26, "share_of_reviews": 0.0881}, {"issue_type": "Wrong Category", "severity": "Medium", "occurrences": 24, "share_of_reviews": 0.0814}, {"issue_type": "Incomplete", "severity": "High", "occurrences": 20, "share_of_reviews": 0.0678}, {"issue_type": "Missing Context", "severity": "High", "occurrences": 20, "share_of_reviews": 0.0678}, {"issue_type": "Low Actionability", "severity": "High", "occurrences": 16, "share_of_reviews": 0.0542}, {"issue_type": "Format Issue", "severity": "High", "occurrences": 15, "share_of_reviews": 0.0508}, {"issue_type": "Too Generic", "severity": "High", "occurrences": 12, "share_of_reviews": 0.0407}, {"issue_type": "Wrong Category", "severity": "High", "occurrences": 5, "share_of_reviews": 0.0169}], "monthly_quality_trend": [{"response_month": "2026-02", "reviewed_responses": 87, "avg_quality_score": 3.6, "release_ready_rate": 0.3563, "critical_issue_rate": 0.1954}, {"response_month": "2026-03", "reviewed_responses": 130, "avg_quality_score": 3.63, "release_ready_rate": 0.4385, "critical_issue_rate": 0.2}, {"response_month": "2026-04", "reviewed_responses": 135, "avg_quality_score": 3.62, "release_ready_rate": 0.3556, "critical_issue_rate": 0.1852}, {"response_month": "2026-05", "reviewed_responses": 148, "avg_quality_score": 3.79, "release_ready_rate": 0.4662, "critical_issue_rate": 0.1351}], "reviewer_calibration": [{"reviewer_id": "REV03", "reviewed_responses": 165, "avg_quality_score": 3.67, "score_stddev": 0.82, "avg_review_time_minutes": 10.16, "rework_rate": 0.3636}, {"reviewer_id": "REV01", "reviewed_responses": 112, "avg_quality_score": 3.55, "score_stddev": 0.73, "avg_review_time_minutes": 9.97, "rework_rate": 0.4911}, {"reviewer_id": "REV04", "reviewed_responses": 112, "avg_quality_score": 3.69, "score_stddev": 0.78, "avg_review_time_minutes": 11.04, "rework_rate": 0.4107}, {"reviewer_id": "REV02", "reviewed_responses": 111, "avg_quality_score": 3.76, "score_stddev": 0.7, "avg_review_time_minutes": 10.54, "rework_rate": 0.4144}], "improvement_backlog": [{"use_case": "Data Explanation", "prompt_version": "v1", "reviewed_responses": 44, "avg_quality_score": 3.25, "avg_actionability": 3.32, "release_ready_rate": 0.1591, "not_approved_cases": 37, "avg_review_time_minutes": 10.39}, {"use_case": "Report Drafting", "prompt_version": "v1", "reviewed_responses": 39, "avg_quality_score": 3.22, "avg_actionability": 3.1, "release_ready_rate": 0.1795, "not_approved_cases": 32, "avg_review_time_minutes": 9.79}, {"use_case": "Message Classification", "prompt_version": "v1", "reviewed_responses": 41, "avg_quality_score": 3.2, "avg_actionability": 3.34, "release_ready_rate": 0.1951, "not_approved_cases": 33, "avg_review_time_minutes": 10.66}, {"use_case": "Ticket Summary", "prompt_version": "v1", "reviewed_responses": 35, "avg_quality_score": 3.19, "avg_actionability": 3.06, "release_ready_rate": 0.2, "not_approved_cases": 28, "avg_review_time_minutes": 9.51}, {"use_case": "Ticket Summary", "prompt_version": "v2", "reviewed_responses": 45, "avg_quality_score": 3.35, "avg_actionability": 3.36, "release_ready_rate": 0.2444, "not_approved_cases": 34, "avg_review_time_minutes": 10.29}, {"use_case": "Data Explanation", "prompt_version": "v2", "reviewed_responses": 45, "avg_quality_score": 3.72, "avg_actionability": 3.76, "release_ready_rate": 0.4444, "not_approved_cases": 25, "avg_review_time_minutes": 11.0}, {"use_case": "Ticket Summary", "prompt_version": "v3", "reviewed_responses": 36, "avg_quality_score": 3.91, "avg_actionability": 3.81, "release_ready_rate": 0.5, "not_approved_cases": 18, "avg_review_time_minutes": 10.47}, {"use_case": "Message Classification", "prompt_version": "v2", "reviewed_responses": 30, "avg_quality_score": 4.0, "avg_actionability": 3.93, "release_ready_rate": 0.5, "not_approved_cases": 15, "avg_review_time_minutes": 10.7}, {"use_case": "Report Drafting", "prompt_version": "v2", "reviewed_responses": 48, "avg_quality_score": 3.95, "avg_actionability": 3.83, "release_ready_rate": 0.5625, "not_approved_cases": 21, "avg_review_time_minutes": 10.48}, {"use_case": "Message Classification", "prompt_version": "v3", "reviewed_responses": 48, "avg_quality_score": 4.0, "avg_actionability": 3.96, "release_ready_rate": 0.5833, "not_approved_cases": 20, "avg_review_time_minutes": 10.69}], "data_quality_summary": [{"rule_name": "response_without_evaluation", "severity": "Critical", "failed_records": 0}, {"rule_name": "evaluation_without_response", "severity": "Critical", "failed_records": 0}, {"rule_name": "score_outside_expected_range", "severity": "Critical", "failed_records": 0}, {"rule_name": "approved_with_high_severity", "severity": "Critical", "failed_records": 0}, {"rule_name": "duplicate_response_evaluation", "severity": "Critical", "failed_records": 0}, {"rule_name": "approved_but_below_threshold", "severity": "Warning", "failed_records": 0}]}</script>
+  <script>
+    const data = JSON.parse(document.getElementById("dashboardData").textContent);
+    const fmt = new Intl.NumberFormat("en-US");
+    const pct = (v) => `${(Number(v || 0) * 100).toFixed(1)}%`;
+    const score = (v) => Number(v || 0).toFixed(2);
+    const num = (v) => fmt.format(Number(v || 0));
+    const kpi = data.kpi_summary[0];
+
+    const bestVersion = [...data.prompt_version_performance].sort((a, b) => Number(b.release_ready_rate || 0) - Number(a.release_ready_rate || 0))[0];
+    const worstCase = [...data.quality_by_use_case].sort((a, b) => Number(a.avg_quality_score || 0) - Number(b.avg_quality_score || 0))[0];
+    document.getElementById("decisionText").textContent =
+      `Version ${bestVersion.prompt_version} has the strongest readiness (${pct(bestVersion.release_ready_rate)}). The weakest point is "${worstCase.use_case}", with average score ${score(worstCase.avg_quality_score)}.`;
+
+    const kpis = [
+      ["Responses", num(kpi.reviewed_responses), "Reviewed sample"],
+      ["Average score", score(kpi.avg_quality_score), "1 to 5 scale"],
+      ["Release-ready", pct(kpi.release_ready_rate), "Aprovadas, score >= 4, sem severidade alta"],
+      ["Rework", pct(kpi.rework_rate), "Responses needing adjustment"]
+    ];
+    document.getElementById("kpis").innerHTML = kpis.map(([label, value, sub]) => `
+      <article class="card"><small>${label}</small><strong>${value}</strong><span>${sub}</span></article>
+    `).join("");
+
+    function bars(el, rows, labelKey, valueKey, formatter, maxValue = null, color = "linear-gradient(90deg, var(--blue), var(--cyan))") {
+      const max = maxValue ?? Math.max(...rows.map((row) => Number(row[valueKey] || 0)));
+      document.getElementById(el).innerHTML = rows.map((row) => {
+        const value = Number(row[valueKey] || 0);
+        const width = Math.max(2, value / max * 100);
+        return `<div class="bar-row">
+          <div class="bar-label">${row[labelKey]}</div>
+          <div class="track"><div class="fill" style="width:${width}%; background:${color}"></div></div>
+          <div class="bar-value">${formatter(value)}</div>
+        </div>`;
+      }).join("");
+    }
+
+    bars("promptBars", data.prompt_version_performance, "prompt_version", "release_ready_rate", pct, 1, "linear-gradient(90deg, var(--green), var(--cyan))");
+    bars("dimensionBars", data.dimension_scores, "dimension", "avg_score", score, 5);
+
+    function table(el, headers, rows) {
+      document.getElementById(el).innerHTML = `
+        <thead><tr>${headers.map((h) => `<th class="${h.num ? "num" : ""}">${h.label}</th>`).join("")}</tr></thead>
+        <tbody>${rows.map((row) => `<tr>${headers.map((h) => `<td class="${h.num ? "num" : ""}">${h.format ? h.format(row[h.key]) : row[h.key]}</td>`).join("")}</tr>`).join("")}</tbody>
+      `;
+    }
+
+    table("useCaseTable", [
+      { key: "use_case", label: "Use case" },
+      { key: "reviewed_responses", label: "N", num: true, format: num },
+      { key: "avg_quality_score", label: "Score", num: true, format: score },
+      { key: "release_ready_rate", label: "Ready", num: true, format: pct },
+      { key: "avg_review_time_minutes", label: "Min", num: true, format: (v) => Number(v || 0).toFixed(1) }
+    ], data.quality_by_use_case);
+
+    table("issueTable", [
+      { key: "issue_type", label: "Issue" },
+      { key: "severity", label: "Sev." },
+      { key: "occurrences", label: "Occurr.", num: true, format: num },
+      { key: "share_of_reviews", label: "Share", num: true, format: pct }
+    ], data.issue_distribution.slice(0, 8));
+
+    table("backlogTable", [
+      { key: "use_case", label: "Use case" },
+      { key: "prompt_version", label: "Version" },
+      { key: "avg_quality_score", label: "Score", num: true, format: score },
+      { key: "release_ready_rate", label: "Ready", num: true, format: pct },
+      { key: "not_approved_cases", label: "Not appr.", num: true, format: num }
+    ], data.improvement_backlog.slice(0, 8));
+
+    table("reviewerTable", [
+      { key: "reviewer_id", label: "Reviewer" },
+      { key: "reviewed_responses", label: "N", num: true, format: num },
+      { key: "avg_quality_score", label: "Average score", num: true, format: score },
+      { key: "score_stddev", label: "Std dev", num: true, format: score },
+      { key: "avg_review_time_minutes", label: "Min/review", num: true, format: (v) => Number(v || 0).toFixed(1) },
+      { key: "rework_rate", label: "Rework", num: true, format: pct }
+    ], data.reviewer_calibration);
+
+    const trendRows = data.monthly_quality_trend;
+    document.getElementById("trend").innerHTML = trendRows.map((row) => {
+      const height = Math.max(8, Number(row.avg_quality_score || 0) / 5 * 190);
+      return `<div class="trend-col">
+        <div class="trend-bar" style="height:${height}px"></div>
+        <span>${row.response_month}<br><strong>${score(row.avg_quality_score)}</strong></span>
+      </div>`;
+    }).join("");
+  </script>
+</body>
+</html>

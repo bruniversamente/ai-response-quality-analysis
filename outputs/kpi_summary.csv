@@ -1,0 +1,2 @@
+reviewed_responses,avg_quality_score,release_ready_rate,rework_rate,critical_issue_rate,avg_review_time_minutes,avg_latency_seconds
+500,3.67,0.41,0.414,0.176,10.4,3.45
