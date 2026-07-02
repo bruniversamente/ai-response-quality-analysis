@@ -10,7 +10,7 @@ dashboard/ai_response_quality_dashboard.html
 
 ## Objetivo
 
-Permitir que recrutadores, líderes de produto, operações e IA entendam rapidamente:
+Permitir que líderes de produto, operações e IA entendam rapidamente:
 
 - quantas respostas foram revisadas;
 - qual é o nível médio de qualidade;

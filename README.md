@@ -6,7 +6,7 @@ AI Operations case study built around a practical question: **which AI-generated
 
 The case is not about showing an average AI score. It simulates a governance workflow: review responses, apply a rubric, compare prompt versions, identify recurring failures and turn human review into a prioritized improvement backlog.
 
-> Synthetic data created for portfolio purposes. The project simulates an AI evaluation workflow with Python, SQL, DuckDB, quality rubric, prompt versioning, data checks and a reproducible HTML dashboard.
+> Synthetic data created for demonstration purposes. The project simulates an AI evaluation workflow with Python, SQL, DuckDB, quality rubric, prompt versioning, data checks and a reproducible HTML dashboard.
 
 ## Executive Summary
 
@@ -32,11 +32,9 @@ Current build highlights:
 | Weakest rubric dimension | Actionability, 3.62 score |
 | Critical data quality failures | 0 |
 
-## Why This Case Matters
+## What The Analysis Demonstrates
 
-This case positions the portfolio in **applied AI with operational responsibility**. It shows that evaluating AI is not asking whether an answer "looks good"; it is defining criteria, measuring risk, comparing versions and deciding what can safely move toward production.
-
-Interview version: "I built an evaluation layer for AI responses, found that the average score hid operational risk, and used a release-ready rule to separate usable responses from responses that still require rework."
+The project shows how AI quality can be evaluated as an operational release decision, not only as a subjective review of whether an answer "looks good". It defines criteria, measures risk, compares versions and separates responses that can move forward from responses that still need rework.
 
 The case demonstrates:
 

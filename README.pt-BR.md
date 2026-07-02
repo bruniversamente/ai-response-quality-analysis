@@ -6,7 +6,7 @@ Estudo de caso de AI Operations para responder uma pergunta prática: **quais re
 
 O ponto do case não é mostrar uma nota média de IA. A proposta é simular uma rotina de governança: revisar respostas, aplicar uma rubrica, comparar versões de prompt, identificar falhas recorrentes e transformar revisão humana em um backlog priorizado de melhoria.
 
-> Dados sintéticos criados para fins de portfólio. O projeto simula uma rotina real de avaliação de IA usando Python, SQL, DuckDB, rubrica de qualidade, versionamento de prompts, checagens de dados e dashboard HTML reprodutível.
+> Dados sintéticos criados para demonstração. O projeto simula uma rotina real de avaliação de IA usando Python, SQL, DuckDB, rubrica de qualidade, versionamento de prompts, checagens de dados e dashboard HTML reprodutível.
 
 ## Resumo executivo
 
@@ -30,11 +30,9 @@ Principais achados gerados pelo build atual:
 - Dimensão mais fraca da rubrica: **Actionability**, com score **3,62**
 - Falhas críticas de qualidade dos dados: **0**
 
-## Por que este case importa no portfólio
+## O que a análise demonstra
 
-Este é o case que posiciona o portfólio em **IA aplicada com responsabilidade operacional**. Ele mostra que avaliar IA não é perguntar se a resposta "parece boa"; é definir critérios, medir risco, comparar versões e decidir o que pode ir para produção.
-
-Em uma entrevista, a história pode ser defendida assim: "eu construí uma camada de avaliação para respostas de IA, descobri que a média escondia risco operacional e usei uma regra de release-ready para separar respostas utilizáveis de respostas que ainda exigem retrabalho."
+O projeto mostra como a qualidade de IA pode ser tratada como decisão operacional de release, não apenas como uma avaliação subjetiva sobre a resposta "parecer boa". A análise define critérios, mede risco, compara versões e separa respostas que podem avançar de respostas que ainda precisam de retrabalho.
 
 O case demonstra:
 
@@ -51,7 +49,7 @@ O dashboard estático fica em:
 dashboard/ai_response_quality_dashboard_pt-BR.html
 ```
 
-Ele foi pensado para leitura de recrutador e liderança: KPIs de qualidade no topo, comparação de versões de prompt, dimensões da rubrica, problemas recorrentes, tendência mensal, backlog de melhoria e calibração de revisores.
+Ele foi pensado para leitura executiva e técnica: KPIs de qualidade no topo, comparação de versões de prompt, dimensões da rubrica, problemas recorrentes, tendência mensal, backlog de melhoria e calibração de revisores.
 
 ![Dashboard preview](images/dashboard_preview.pt-BR.png)
 
