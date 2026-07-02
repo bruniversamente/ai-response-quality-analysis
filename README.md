@@ -45,18 +45,14 @@ The case demonstrates:
 
 ## Dashboard
 
-Open the static dashboard at:
+Open the published dashboard: [AI Response Quality](https://bruniversamente.github.io/dashboards/?case=ai-quality&lang=en).
 
-```text
-dashboard/ai_response_quality_dashboard.html
-```
+Reproducible local HTML file: [ai_response_quality_dashboard.html](dashboard/ai_response_quality_dashboard.html).
 
 Explicit language variants are also generated:
 
-```text
-dashboard/ai_response_quality_dashboard_en.html
-dashboard/ai_response_quality_dashboard_pt-BR.html
-```
+- [ai_response_quality_dashboard_en.html](dashboard/ai_response_quality_dashboard_en.html)
+- [ai_response_quality_dashboard_pt-BR.html](dashboard/ai_response_quality_dashboard_pt-BR.html)
 
 ![Dashboard preview](images/dashboard_preview.png)
 
@@ -137,11 +133,7 @@ python scripts/build_outputs.py
 python scripts/run_sql.py
 ```
 
-Open:
-
-```text
-dashboard/ai_response_quality_dashboard.html
-```
+Open the local dashboard: [ai_response_quality_dashboard.html](dashboard/ai_response_quality_dashboard.html).
 
 ## Simulated Recommendations
 

@@ -43,11 +43,9 @@ O case demonstra:
 
 ## Dashboard
 
-O dashboard estático fica em:
+Abra o dashboard publicado: [AI Response Quality](https://bruniversamente.github.io/dashboards/?case=ai-quality&lang=pt).
 
-```text
-dashboard/ai_response_quality_dashboard_pt-BR.html
-```
+Arquivo HTML local reproduzível: [ai_response_quality_dashboard_pt-BR.html](dashboard/ai_response_quality_dashboard_pt-BR.html).
 
 Ele foi pensado para leitura executiva e técnica: KPIs de qualidade no topo, comparação de versões de prompt, dimensões da rubrica, problemas recorrentes, tendência mensal, backlog de melhoria e calibração de revisores.
 
@@ -179,11 +177,7 @@ python scripts/build_outputs.py
 python scripts/run_sql.py
 ```
 
-4. Abra o dashboard:
-
-```text
-dashboard/ai_response_quality_dashboard_pt-BR.html
-```
+4. Abra o dashboard local: [ai_response_quality_dashboard_pt-BR.html](dashboard/ai_response_quality_dashboard_pt-BR.html).
 
 ## Recomendações simuladas
 
